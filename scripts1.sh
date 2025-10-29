@@ -1,0 +1,1 @@
+aws ec2 create-vpc --cldr -block 192.168.0.0/24 --tag-specifications "RespourceType=vpc,Tags=[{key=Name,Value=MyVpc}]" --query Vpc.VpcId --output text
