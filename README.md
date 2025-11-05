@@ -33,6 +33,4 @@ Aquí aprenderás a:
 | 🧩 **Serverless** | Lambda, Cloud Functions y API Gateway |
 | 📊 **Monitoreo** | CloudWatch, Prometheus y Grafana |
 
----
 
-## 🚀 Cómo empezar  
