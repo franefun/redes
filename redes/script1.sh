@@ -28,7 +28,8 @@ aws ec2 modify-subnet-attribute --subnet-id $SUB_ID --map-public-ip-on-launch
 # Crear Security Group
 SG_ID=$(aws ec2 create-security-group \
   --vpc-id $VPC_ID \
-  --group-name gs-mck \
+  --group-name gs-fran \
+  --query GroupId \
   --description "My security group for port 22" \
   --output text)
 
