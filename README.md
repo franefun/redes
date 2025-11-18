@@ -1,4 +1,4 @@
-# ☁️ Servicios en la Nube 🚀  
+# Servicios en la Nube  
 
 > Domina el poder de la nube: infraestructura, despliegue y automatización a tu alcance.  
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 🌍 Descripción  
+## Descripción  
 
 Este repositorio recopila **recursos, ejemplos y prácticas** sobre **Servicios en la Nube**, incluyendo despliegues en AWS, Azure y Google Cloud Platform.  
 Aquí aprenderás a:  
@@ -18,19 +18,19 @@ Aquí aprenderás a:
 - Gestionar infraestructura como código (IaC) con Terraform o CloudFormation.  
 - Automatizar tareas con CI/CD y serverless functions.  
 
-> 🎯 Ideal para estudiantes, desarrolladores o sysadmins que quieran dominar la nube paso a paso.  
+> Ideal para estudiantes, desarrolladores o sysadmins que quieran dominar la nube paso a paso.  
 
 ---
 
-## 🧠 Temas que cubre  
+## Temas que cubre  
 
 | Categoría | Descripción |
 |------------|--------------|
-| ☁️ **Infraestructura Cloud** | Configuración de servicios base (EC2, S3, VPC, etc.) |
-| 🧰 **IaC (Infrastructure as Code)** | Terraform, CloudFormation y Ansible |
-| 🐳 **Contenedores** | Docker, Kubernetes y orquestación |
-| ⚙️ **Automatización** | CI/CD con GitHub Actions y Jenkins |
-| 🧩 **Serverless** | Lambda, Cloud Functions y API Gateway |
-| 📊 **Monitoreo** | CloudWatch, Prometheus y Grafana |
+| **Infraestructura Cloud** | Configuración de servicios base (EC2, S3, VPC, etc.) |
+| **IaC (Infrastructure as Code)** | Terraform, CloudFormation y Ansible |
+| **Contenedores** | Docker, Kubernetes y orquestación |
+| **Automatización** | CI/CD con GitHub Actions y Jenkins |
+| **Serverless** | Lambda, Cloud Functions y API Gateway |
+| **Monitoreo** | CloudWatch, Prometheus y Grafana |
 
 
