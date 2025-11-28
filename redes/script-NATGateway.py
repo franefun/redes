@@ -171,6 +171,37 @@ ec2_privada = ec2.run_instances(
 ec2_privada_id = ec2_privada['Instances'][0]['InstanceId']
 print(f"Instancia EC2 privada creada con ID: {ec2_privada_id}")
 
+# Crear Elastic IP para el NAT Gateway
+eip = ec2.allocate_address(Domain='vpc')
+eip_id = eip['AllocationId']
+
+print(f"Elastic IP creada con ID: {eip_id}")
+
+# Crear NAT Gateway en la subred pública
+nat_gateway = ec2.create_nat_gateway(
+    SubnetId=subnet_id_publica, 
+    AllocationId=eip_id,
+    TagSpecifications=[
+        {
+            'ResourceType': 'natgateway',
+            'Tags': [{'Key': 'Name', 'Value': 'MiNATGateway'}]
+        }
+    ]
+)
+nat_gateway_id = nat_gateway['NatGateway']['NatGatewayId']
+print(f"NAT Gateway creada con ID: {nat_gateway_id}")
+
+
+# Esperar a que el NAT Gateway esté disponible
+waiter = ec2.get_waiter('nat_gateway_available')
+waiter.wait(NatGatewayIds=[nat_gateway_id])
+
+
+
+
+
+
+
 
 
 
