@@ -218,6 +218,15 @@ ec2.create_route(
     NatGatewayId=nat_gateway_id
 
 )
+print("Ruta hacia el NAT Gateway añadida a la tabla de rutas privada")
+
+#Asocia la tabla de rutas a la subred privada
+ec2.associate_route_table(
+    SubnetId=subnet_id_privada,
+    RouteTableId=rtb_privada_id
+)
+
+print("Tabla de rutas asociada a la subred privada")
 
 
 
