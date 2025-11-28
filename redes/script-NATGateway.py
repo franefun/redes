@@ -211,7 +211,13 @@ rtb_privada_id = rtb_privada['RouteTable']['RouteTableId']
 print(f"Tabla de rutas privada creada con ID: {rtb_privada_id}")
 
 
+#Añado la ruta hacia el NAT Gateway
+ec2.create_route(
+    RouteTableId=rtb_privada_id,
+    DestinationCidrBlock='0.0.0.0/0',
+    NatGatewayId=nat_gateway_id
 
+)
 
 
 
