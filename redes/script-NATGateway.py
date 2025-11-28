@@ -197,6 +197,18 @@ waiter = ec2.get_waiter('nat_gateway_available')
 waiter.wait(NatGatewayIds=[nat_gateway_id])
 
 
+#Creo tabla de rutas para la subred privada
+rtb_privada = ec2.create_route_table(
+    VpcId=vpc_id, 
+    TagSpecifications=[
+        {
+            'ResourceType': 'route-table',
+            'Tags': [{'Key': 'Name', 'Value': 'MiRouteTable-privada'}]
+        }
+    ]
+)
+rtb_privada_id = rtb_privada['RouteTable']['RouteTableId']
+print(f"Tabla de rutas privada creada con ID: {rtb_privada_id}")
 
 
 
