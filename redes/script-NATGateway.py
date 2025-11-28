@@ -68,7 +68,26 @@ ec2.create_tags(
 print(f"Internet Gateway creado y asociado a la VPC: {igw_id}")
 
 
+# Creo tabla de rutas
+route_table=ec2.create_route_table (VpcId=vpc_id)
+rtb_id = route_table['RouteTable']['RouteTableId']
+print(f"Tabla de rutas creada: {rtb_id}")
 
+
+# Creo ruta hacia Internet
+ec2.create_route(
+    RouteTableId=rtb_id,
+    DestinationCidrBlock='0.0.0.0/0',
+    GatewayId=igw_id
+)
+print(f"Ruta a Internet creada en la tabla {rtb_id}")
+
+# Asociar la tabla de rutas a la subred pública
+association = ec2.associate_route_table(
+    SubnetId=subnet_id_publica,
+    RouteTableId=rtb_id
+)
+print(f"Tabla de rutas {rtb_id} asociada a la subred {subnet_id_publica}")
 
 
 
