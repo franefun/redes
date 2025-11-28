@@ -34,14 +34,14 @@ subnet_publica= ec2.create_subnet(
         }
     ]
 )
-subnet_id = subnet_publica['Subnet']['SubnetId']
+subnet_id_publica = subnet_publica['Subnet']['SubnetId']
 
 # Habilitar IP pública automática en la subred
 ec2.modify_subnet_attribute(
-    SubnetId=subnet_id,
+    SubnetId=subnet_id_publica,
     MapPublicIpOnLaunch={'Value': True}
 )
-print(f"Subred pública creada con ID: {subnet_id}")
+print(f"Subred pública creada con ID: {subnet_id_publica}")
 
 subnet_privada= ec2.create_subnet(
     VpcId=vpc_id,
@@ -53,8 +53,21 @@ subnet_privada= ec2.create_subnet(
         }
     ]
 )
-subnet_id = subnet_publica['Subnet']['SubnetId']
-print(f"Subred privada creada con ID: {subnet_id}")
+subnet_id_privada = subnet_publica['Subnet']['SubnetId']
+print(f"Subred privada creada con ID: {subnet_id_privada}")
+
+
+# Creo internet Gateway y lo asocio a la vpc
+igw= ec2.create_internet_gateway()
+igw_id = igw['InternetGateway']['InternetGatewayId']
+ec2.attach_internet_gateway(InternetGatewayId=igw_id,VpcId=vpc_id)
+ec2.create_tags(
+    Resources=[igw_id],
+    Tags=[{'Key': 'Name', 'Value': 'MiIGW'}]
+)
+print(f"Internet Gateway creado y asociado a la VPC: {igw_id}")
+
+
 
 
 
