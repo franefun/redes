@@ -27,6 +27,7 @@ print("DNS hostnames habilitados en la VPC.")
 subnet_publica= ec2.create_subnet(
     VpcId=vpc_id,
     CidrBlock='192.168.0.0/24',
+    AvailabilityZone='us-east-1a',
     TagSpecifications=[
         {
             'ResourceType': 'subnet',
@@ -46,6 +47,7 @@ print(f"Subred pública creada con ID: {subnet_id_publica}")
 subnet_privada= ec2.create_subnet(
     VpcId=vpc_id,
     CidrBlock='192.168.1.0/24',
+    AvailabilityZone='us-east-1a',
     TagSpecifications=[
         {
             'ResourceType': 'subnet',
@@ -53,7 +55,7 @@ subnet_privada= ec2.create_subnet(
         }
     ]
 )
-subnet_id_privada = subnet_publica['Subnet']['SubnetId']
+subnet_id_privada = subnet_privada['Subnet']['SubnetId']
 print(f"Subred privada creada con ID: {subnet_id_privada}")
 
 
@@ -127,6 +129,49 @@ ec2.authorize_security_group_ingress(
         }
     ]
 )
+
+# Crear instancia EC2 en la subred pública
+ec2_publica = ec2.run_instances(
+    ImageId='ami-0360c520857e3138f',
+    InstanceType='t3.micro',
+    KeyName='vockey',
+    SubnetId=subnet_id_publica,
+    SecurityGroupIds=[sg_id],
+    MinCount=1,
+    MaxCount=1,
+    TagSpecifications=[
+        {
+            'ResourceType': 'instance',
+            'Tags': [{'Key': 'Name', 'Value': 'Ec2-publica'}]
+        }
+    ]
+)
+
+ec2_publica_id = ec2_publica['Instances'][0]['InstanceId']
+print(f"Instancia EC2 pública creada con ID: {ec2_publica_id}")
+
+
+# Crear instancia EC2 en la subred privada
+ec2_privada = ec2.run_instances(
+    ImageId='ami-0360c520857e3138f',
+    InstanceType='t3.micro',
+    KeyName='vockey',
+    SubnetId=subnet_id_privada,
+    SecurityGroupIds=[sg_id],
+    MinCount=1,
+    MaxCount=1,
+    TagSpecifications=[
+        {
+            'ResourceType': 'instance',
+            'Tags': [{'Key': 'Name', 'Value': 'Ec2-privada'}]
+        }
+    ]
+)
+
+ec2_privada_id = ec2_privada['Instances'][0]['InstanceId']
+print(f"Instancia EC2 privada creada con ID: {ec2_privada_id}")
+
+
 
 
 
