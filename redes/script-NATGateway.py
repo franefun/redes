@@ -90,4 +90,43 @@ association = ec2.associate_route_table(
 print(f"Tabla de rutas {rtb_id} asociada a la subred {subnet_id_publica}")
 
 
+# Crear Security Group
+gs=ec2.create_security_group(
+    Description='grupo de seguridad para mi VPC',
+    GroupName='gs-NatGateway',
+    VpcId=vpc_id)
+sg_id = gs['GroupId']
+print(f"Grupo de seguridad creado con ID: {sg_id}")
+
+
+# Reglas del grupo de seguridad
+ec2.authorize_security_group_ingress(
+    GroupId=sg_id,
+    IpPermissions=[
+        {
+            'IpProtocol': 'tcp',
+            'FromPort': 22,
+            'ToPort': 22,
+            'IpRanges': [
+                {'CidrIp': '0.0.0.0/0', 'Description': 'SSH desde cualquier IP'}
+            ]
+        }
+    ]
+)
+
+ec2.authorize_security_group_ingress(
+    GroupId=sg_id,
+    IpPermissions=[
+        {
+            'IpProtocol': 'icmp',
+            'FromPort': -1,
+            'ToPort': -1,
+            'IpRanges': [
+                {'CidrIp': '0.0.0.0/0', 'Description': 'ping desde cualquier IP'}
+            ]
+        }
+    ]
+)
+
+
 
