@@ -23,3 +23,39 @@ ec2.modify_vpc_attribute(
     EnableDnsHostnames={'Value': True}
 )
 print("DNS hostnames habilitados en la VPC.")
+
+subnet_publica= ec2.create_subnet(
+    VpcId=vpc_id,
+    CidrBlock='192.168.0.0/24',
+    TagSpecifications=[
+        {
+            'ResourceType': 'subnet',
+            'Tags': [{'Key': 'Name', 'Value': 'MiSubred-publica'}]
+        }
+    ]
+)
+subnet_id = subnet_publica['Subnet']['SubnetId']
+
+# Habilitar IP pública automática en la subred
+ec2.modify_subnet_attribute(
+    SubnetId=subnet_id,
+    MapPublicIpOnLaunch={'Value': True}
+)
+print(f"Subred pública creada con ID: {subnet_id}")
+
+subnet_privada= ec2.create_subnet(
+    VpcId=vpc_id,
+    CidrBlock='192.168.1.0/24',
+    TagSpecifications=[
+        {
+            'ResourceType': 'subnet',
+            'Tags': [{'Key': 'Name', 'Value': 'MiSubred-privada'}]
+        }
+    ]
+)
+subnet_id = subnet_publica['Subnet']['SubnetId']
+print(f"Subred privada creada con ID: {subnet_id}")
+
+
+
+
